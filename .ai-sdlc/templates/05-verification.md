@@ -6,13 +6,13 @@
 
 ## Chequeos ejecutados
 
-| Check | Result | Evidence |
+| Chequeo | Resultado | Evidencia |
 |---|---|---|
 | | | |
 
 ## Evidencia de criterios de aceptación
 
-| Criterion | Evidence | Result |
+| Criterio | Evidencia | Resultado |
 |---|---|---|
 | | | |
 

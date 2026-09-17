@@ -17,11 +17,11 @@ Un ciclo típico: descubre el comportamiento existente, lo convierte en criterio
 
 ## Componentes
 
-- **Orquestador `ai-sdlc`:** dueño de la orquestación y del estado canónico (`00-state.md`). Ejecuta las fases en orden y aplica el límite de 2 remediaciones.
-- **`requirements-engineer`:** descubre y formaliza el requisito (solo lectura, no edita código). Produce `02-requirements.md`.
-- **`software-architect`:** convierte los requisitos aprobados en el diseño mínimo coherente. Produce `03-design.md`.
-- **`implementation-engineer`:** implementa el diseño, actualiza las llamadas afectadas y elimina código obsoleto. Produce `04-implementation.md`.
-- **`verification-engineer`:** valida con evidencia objetiva usando los comandos del repositorio (sin `Write`/`Edit`, no corrige en silencio). Produce `05-verification.md` con `PASS`/`FAIL`.
+- **Orquestador `ai-sdlc`:** dueño de la orquestación y del estado canónico (`00-state.md`). Ejecuta las fases en orden, aplica el límite de 2 remediaciones y persiste los artefactos de los especialistas de solo lectura.
+- **`requirements-engineer`:** descubre y formaliza el requisito (solo lectura sobre el repositorio, sin herramientas de escritura). Devuelve el resultado como handoff; el orquestador persiste `02-requirements.md`.
+- **`software-architect`:** convierte los requisitos aprobados en el diseño mínimo coherente (solo lectura, no implementa). Devuelve el resultado como handoff; el orquestador persiste `03-design.md`.
+- **`implementation-engineer`:** único especialista que muta el repositorio: implementa el diseño, actualiza las llamadas afectadas y elimina código obsoleto. Escribe su propio `04-implementation.md`.
+- **`verification-engineer`:** valida con evidencia objetiva usando los comandos del repositorio (solo lectura sobre el código, sin escritura; usa `Bash` solo para ejecutar comprobaciones, no corrige código en silencio). Devuelve el resultado como handoff; el orquestador persiste `05-verification.md` con `PASS`/`FAIL`.
 - **Skills por fase:** los procedimientos repetibles viven en `.claude/skills/` (`sdlc-orchestration`, `requirements`, `design`, `implementation`, `verification`) y se cargan solo cuando se necesitan.
 - **Plantillas:** contratos Markdown simples en `.ai-sdlc/templates/`; no se cargan de forma global.
 - **Espacios de trabajo:** cada tarea vive en `.ai-sdlc/tasks/<task-id>/` con `00-state.md`, `01-request.md`, `02-requirements.md`, `03-design.md`, `04-implementation.md`, `05-verification.md` y `06-delivery.md`.

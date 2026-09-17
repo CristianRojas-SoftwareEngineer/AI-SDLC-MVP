@@ -37,6 +37,8 @@ with:
 
 Use a short filesystem-safe task id. Do not create additional artifacts unless they materially improve traceability.
 
+**Artifact ownership.** The read-only specialists (`requirements-engineer`, `software-architect`, `verification-engineer`) do not write to the workspace; they return their results as handoffs and the orchestrator persists `02-requirements.md`, `03-design.md`, and `05-verification.md` from that content. Only `implementation-engineer` mutates the repository and writes its own `04-implementation.md`. The orchestrator owns `00-state.md`, `01-request.md`, and `06-delivery.md`.
+
 ## Phase gate rules
 
 ### Requirements gate
@@ -124,4 +126,4 @@ When asking, present the exact missing decision and the concrete information nee
 
 ## Compact orchestration rule
 
-Pass artifacts, not transcript history. A specialist should receive the task id and the paths to its predecessor artifacts. The artifact is the durable contract; the returned handoff is only a summary.
+Pass artifacts, not transcript history. A specialist should receive the task id and the paths to its predecessor artifacts (which the orchestrator has already persisted). The artifact is the durable contract; the returned handoff carries the summary and, for read-only specialists, the artifact content the orchestrator writes.

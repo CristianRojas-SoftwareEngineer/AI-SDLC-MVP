@@ -52,9 +52,9 @@ El SDLC tiene más fases conceptuales que agentes esta implementación. Esto es 
 | Fase | Ejecutor | Motivo |
 |---|---|---|
 | Requisitos | `requirements-engineer` | Descubrimiento y formalización con alta carga de lectura; sin ediciones de código |
-| Diseño | `software-architect` | Análisis del repositorio más creación del artefacto de diseño |
-| Implementación | `implementation-engineer` | Mayor superficie de mutación/herramientas; enfocado en la ejecución |
-| Verificación | `verification-engineer` | La recolección de evidencia sin `Write`/`Edit` evita la autorreparación silenciosa |
+| Diseño | `software-architect` | Análisis del repositorio en solo lectura; devuelve el diseño como handoff, el orquestador lo persiste |
+| Implementación | `implementation-engineer` | Único mutador del repositorio; mayor superficie de herramientas, enfocado en la ejecución |
+| Verificación | `verification-engineer` | Recolecta evidencia en solo lectura (sin `Write`/`Edit`); `Bash` solo para comprobaciones, evita la autorreparación silenciosa |
 | Entrega | `ai-sdlc` | Paso pequeño de síntesis; sin beneficio de aislamiento de contexto |
 | Mantenimiento | siguiente tarea / siguiente iteración | Reingresa a Requisitos en lugar de añadir un agente de mantenimiento |
 
@@ -118,7 +118,7 @@ El límite de dos remediaciones es una válvula de seguridad deliberada del MVP.
 
 ## 7. Permisos y superficie de riesgo
 
-El orquestador solo puede generar los cuatro tipos conocidos de trabajadores. Los trabajadores de requisitos y verificación no tienen `Write`/`Edit` (verificación puede usar `Bash` para ejecutar comprobaciones, sin editar código). Los trabajadores de diseño e implementación tienen `Write`/`Edit`; el arquitecto escribe el artefacto `03-design.md` y la edición del repositorio corresponde a implementación, con Bash disponible donde los comandos del repositorio lo requieran.
+El orquestador solo puede generar los cuatro tipos conocidos de trabajadores. `implementation-engineer` (`Read, Write, Edit, Grep, Glob, Bash`) es el **único** especialista que muta el repositorio y escribe su propio `04-implementation.md`. Los demás son de solo lectura sobre el código y **no** tienen `Write`/`Edit`: `requirements-engineer` (`Read, Grep, Glob`) y `software-architect` (`Read, Grep, Glob`) devuelven su resultado como handoff; `verification-engineer` (`Read, Grep, Glob, Bash`) usa `Bash` solo para ejecutar comprobaciones, por lo que no puede autorrepararse en silencio. El orquestador `ai-sdlc` persiste `02-requirements.md`, `03-design.md` y `05-verification.md` a partir de esos handoffs, además de `00-state.md`, `01-request.md` y `06-delivery.md`. Esto mantiene una barrera dura: quien no debe tocar el código simplemente no tiene herramientas de escritura, en lugar de depender de una instrucción de prompt.
 
 No hay ningún servidor MCP configurado. No se requiere ningún plugin. No se requiere memoria persistente de agentes para el MVP; los artefactos de tarea proporcionan memoria explícita y revisable.
 

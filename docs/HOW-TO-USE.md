@@ -61,10 +61,10 @@ Si falta información que cambie la aceptación de negocio, el agente se detiene
 | Requisitos | `requirements-engineer` | `02-requirements.md` | Problema, alcance, supuestos y criterios de aceptación verificables |
 | Diseño | `software-architect` | `03-design.md` | Componentes afectados, cambio propuesto y plan de implementación |
 | Implementación | `implementation-engineer` | `04-implementation.md` | Código cambiado, llamadas actualizadas y pruebas relevantes |
-| Verificación | `verification-engineer` | `05-verification.md` | Evidencia objetiva (`PASS`/`FAIL`) mapeada a los criterios (sin `Write`/`Edit`) |
+| Verificación | `verification-engineer` | `05-verification.md` | Evidencia objetiva (`PASS`/`FAIL`) mapeada a los criterios (no corrige código en silencio) |
 | Entrega | `ai-sdlc` | `06-delivery.md` | Resumen del cambio, evidencia, riesgos residuales y estado de despliegue |
 
-El ciclo completo y las reglas de compuerta están definidos en la skill `sdlc-orchestration`. Los especialistas no se coordinan entre ellos; el orquestador les pasa los artefactos.
+El ciclo completo y las reglas de compuerta están definidos en la skill `sdlc-orchestration`. Los especialistas no se coordinan entre ellos; el orquestador les pasa los artefactos. Los de solo lectura (requisitos, diseño, verificación) devuelven su resultado como handoff y el orquestador persiste el artefacto; solo `implementation-engineer` muta el repositorio y escribe su propio `04-implementation.md`.
 
 ## 7. Dónde mirar los resultados
 
@@ -91,7 +91,7 @@ Cada tarea tiene su espacio de trabajo:
 - `PASS` avanza a Entrega y la tarea termina como `DONE`.
 - `FAIL` devuelve a Implementación con la evidencia del fallo.
 - El ciclo admite como máximo **2 remediaciones** por tarea. Si sigue fallando, la tarea se marca `BLOCKED` y el agente te pide dirección.
-- Los trabajadores de requisitos y verificación no tienen `Write`/`Edit` (verificación usa `Bash` para ejecutar comprobaciones): la verificación informa fallos, no corrige código en silencio.
+- Los trabajadores de requisitos, diseño y verificación son de solo lectura sobre el repositorio (sin `Write`/`Edit`; la verificación usa `Bash` solo para ejecutar comprobaciones): devuelven su resultado como handoff y el orquestador persiste el artefacto. La verificación informa fallos, no corrige código en silencio.
 
 ## 9. Cuándo se detiene a preguntar
 

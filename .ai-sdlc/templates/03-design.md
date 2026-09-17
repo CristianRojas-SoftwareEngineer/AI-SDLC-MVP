@@ -18,7 +18,7 @@
 
 ## Consideraciones de despliegue / migración
 
-Not applicable.
+No aplica.
 
 ## Decisiones clave
 

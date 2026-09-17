@@ -10,7 +10,7 @@
 
 ## Estado de despliegue
 
-Not deployed unless explicitly authorized.
+No desplegado salvo autorización explícita.
 
 ## Mantenimiento / seguimiento
 

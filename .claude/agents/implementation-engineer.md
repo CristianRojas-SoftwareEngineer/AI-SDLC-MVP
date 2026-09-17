@@ -2,7 +2,6 @@
 name: implementation-engineer
 description: Implements the approved AI-SDLC design, updates affected call sites, removes obsolete code, and prepares the repository for verification. Use during Implementation or remediation.
 tools: Read, Write, Edit, Grep, Glob, Bash
-model: inherit
 skills:
   - implementation
 ---
